@@ -3,9 +3,24 @@ class MergeSort
     // Merges two subarrays of arr[]. 
     // First subarray is arr[l..m] 
     // Second subarray is arr[m+1..r] 
-    void merge(int arr[], int l, int m, int r) 
+    void merge(int arr[], int[] l, int[] r, int left, int right) 
     {  
        //Your code here  
+	   int i = 0, j = 0, k = 0;
+    while (i < left && j < right) {
+        if (l[i] <= r[j]) {
+            a[k++] = l[i++];
+        }
+        else {
+            a[k++] = r[j++];
+        }
+    }
+    while (i < left) {
+        a[k++] = l[i++];
+    }
+    while (j < right) {
+        a[k++] = r[j++];
+    }
     } 
   
     // Main function that sorts arr[l..r] using 
@@ -14,7 +29,22 @@ class MergeSort
     { 
 	//Write your code here
         //Call mergeSort from here 
-    } 
+	if(arr.length < 2)
+		return;
+	int mid = (r - l)/2;
+	int[] left = new int[mid];
+	int[] right = new int[arr.length-mid];
+
+	for(int i=0;i<mid;i++){
+		left[i] = arr[i];
+	}
+	for(int i=mid;i<arr.length;i++){
+		right[i-mid] = arr[i];
+	}
+	    sort(left, l, mid);
+	    sort(right, mid+1,r);
+	    merge(arr, left, right, mid, r);  
+     } 
   
     /* A utility function to print array of size n */
     static void printArray(int arr[]) 
